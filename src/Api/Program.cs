@@ -1,3 +1,4 @@
+using Api.Features.ProjectTasks.CreateProjectTask;
 using Api.Infrastructure;
 using FluentValidation;
 using Microsoft.EntityFrameworkCore;
@@ -27,5 +28,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapCreateProjectTask();
 
 app.Run();
