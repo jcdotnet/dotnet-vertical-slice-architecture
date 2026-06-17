@@ -1,4 +1,6 @@
-﻿namespace Api.Features.ProjectTasks;
+﻿using Api.Common.Models;
+
+namespace Api.Features.ProjectTasks;
 
 public class ProjectTask
 {
@@ -16,8 +18,7 @@ public class ProjectTask
     public DateTime CreatedAt { get; set; }
     public DateTime? DueDate { get; private set; }
 
-    // TODO later: change to private
-    public ProjectTask(string title, string description, PriorityLevel priority, DateTime? dueDate)
+    private ProjectTask(string title, string description, PriorityLevel priority, DateTime? dueDate)
     {
         Id = Guid.NewGuid();
         Title = title;
@@ -27,17 +28,16 @@ public class ProjectTask
         IsCompleted = false;
     }
 
-    // TODO: factory method that ensures the task has a valid state
-    //public static Result<ProjectTask> Create(string title, string description, PriorityLevel priority,
-    //    DateTime? dueDate)
-    //{
-    //    if (string.IsNullOrWhiteSpace(title))
-    //    {
-    //        return Result.FailureResult<ProjectTask>(Error.TitleRequired);
-    //    }
+    public static Result<ProjectTask> Create(string title, string description, PriorityLevel priority,
+        DateTime? dueDate)
+    {
+        if (string.IsNullOrWhiteSpace(title))
+        {
+            return Result.FailureResult<ProjectTask>(Error.TitleRequired);
+        }
 
-    //    return new ProjectTask(title, description, priority, dueDate);
-    //}
+        return new ProjectTask(title, description, priority, dueDate);
+    }
 
     public void MarkAsCompleted() => IsCompleted = true;
 }
