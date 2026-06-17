@@ -41,7 +41,7 @@ public class CreateProjectTaskCommandHandler(ApplicationDbContext context) :
 
         if (!result.IsSuccess)
         {
-            return Result.FailureResult<Guid>(result.Error);
+            return Result.FailureResult<Guid>(result.Error!);
         }
 
         context.ProjectTasks.Add(result.Value!);

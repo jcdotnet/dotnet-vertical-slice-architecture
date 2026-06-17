@@ -13,7 +13,7 @@ public static class ResultExtensions
                 return Results.Ok();
             }
 
-             return result.Error.ErrorType switch
+            return result.Error!.ErrorType switch
             {
                 ErrorType.NotFound => Results.NotFound(result.Error),
                 ErrorType.Validation => Results.BadRequest(result.Error),

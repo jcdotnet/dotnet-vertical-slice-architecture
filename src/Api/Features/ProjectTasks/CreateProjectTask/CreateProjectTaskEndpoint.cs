@@ -14,7 +14,7 @@ public static class CreateProjectTaskEndpoint
                 var result = await mediator.Send(command); // Result<Guid>
 
                 
-                return result.IsSuccess ? Results.Ok(result.Value) : result.ToHttpResult();
+                return result.IsSuccess ? Results.Ok(result) : result.ToHttpResult();
 
             })
             // These methods create the OpenApi ID, summary and description for the Swagger UI (if added)

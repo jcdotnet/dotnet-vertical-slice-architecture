@@ -22,9 +22,9 @@
  */
 public class Result
 {
-    protected Result(bool isSuccess, Error error)
+    protected Result(bool isSuccess, Error? error)
     {
-        if (isSuccess && error != Error.None || !isSuccess && error == Error.None)
+        if (isSuccess && error != null || !isSuccess && error == null)
         {
             throw new ArgumentException("Invalid error state", nameof(error));
         }
@@ -33,12 +33,12 @@ public class Result
     }
 
     public bool IsSuccess { get; }
-    public Error Error { get; }
+    public Error? Error { get; }
 
-    public static Result SuccessResult() => new(true, Error.None);
+    public static Result SuccessResult() => new(true, null);
     public static Result FailureResult(Error error) => new(false, error);
 
-    public static Result<T> SuccessResult<T>(T value) => new(value, true, Error.None);
+    public static Result<T> SuccessResult<T>(T value) => new(value, true, null);
     public static Result<T> FailureResult<T>(Error error) => new(default, false, error);
     public static T CreateFailure<T>(Error error)
     {
@@ -51,7 +51,7 @@ public class Result
     }
 }
 
-public class Result<T>(T? value, bool isSuccess, Error error) : Result(isSuccess, error)
+public class Result<T>(T? value, bool isSuccess, Error? error) : Result(isSuccess, error)
 {
     public T? Value => value;
     public static Result<T> Failure(Error error) => new(default, false, error);
