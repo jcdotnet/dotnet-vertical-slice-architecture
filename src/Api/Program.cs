@@ -1,5 +1,6 @@
 using Api.Common.Behaviors;
 using Api.Features.ProjectTasks.CreateProjectTask;
+using Api.Features.ProjectTasks.GetProjectTasks;
 using Api.Infrastructure;
 using Api.Infrastructure.Persistence;
 using FluentValidation;
@@ -42,5 +43,6 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.MapCreateProjectTask();
+app.MapGetProjectTasks();
 
 app.Run();
