@@ -1,5 +1,6 @@
 using Api.Common.Behaviors;
 using Api.Features.ProjectTasks.CreateProjectTask;
+using Api.Features.ProjectTasks.GetProjectTaskById;
 using Api.Features.ProjectTasks.GetProjectTasks;
 using Api.Infrastructure;
 using Api.Infrastructure.Persistence;
@@ -49,5 +50,6 @@ app.UseHttpsRedirection();
 
 app.MapCreateProjectTask();
 app.MapGetProjectTasks();
+app.MapGetProjectTaskById();
 
 app.Run();
