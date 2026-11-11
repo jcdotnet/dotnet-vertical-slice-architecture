@@ -34,8 +34,7 @@ public class GetProjectTaskByIdQueryHandler(ApplicationDbContext context) :
 
         if (entity is null)
         {
-            return Result.FailureResult<ProjectTaskDto>(
-                Error.NotFound("ProjectTask.NotFound", $"Task {request.Id} not found."));
+            return Error.NotFound("ProjectTask.NotFound", $"Task {request.Id} not found.");
         }
         return mapper.ProjectTaskToDto(entity);
     }

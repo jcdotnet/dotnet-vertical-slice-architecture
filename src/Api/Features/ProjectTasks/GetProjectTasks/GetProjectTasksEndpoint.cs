@@ -13,7 +13,7 @@ public static class GetProjectTasksEndpoint
                 var query = new GetProjectTasksQuery();
                 var result = await mediator.Send(query); // Result<IEnumerable<ProjectTaskDto>>
 
-                return result.IsSuccess ? Results.Ok(result) : result.ToHttpResult();
+                return result.ToHttpResult();
             })
             .WithName("GetProjectTasks")
             .WithSummary("Retrieves all project tasks");

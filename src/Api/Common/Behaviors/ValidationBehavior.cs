@@ -5,9 +5,9 @@ using MediatR;
 namespace Api.Common.Behaviors;
 
 public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TRequest>> validators) :
-    IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
+    IPipelineBehavior<TRequest, Result<TResponse>> where TRequest : IRequest<Result<TResponse>>
 {
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next,
+    public async Task<Result<TResponse>> Handle(TRequest request, RequestHandlerDelegate<Result<TResponse>> next,
         CancellationToken cancellationToken)
     {
         if (validators.Any())
@@ -25,9 +25,7 @@ public class ValidationBehavior<TRequest, TResponse>(IEnumerable<IValidator<TReq
 
             if (errors.Count != 0)
             {
-                var error = Error.Validation("Validation.Error", "Validation errors have occurred.", errors);
-
-                return Result.CreateFailure<TResponse>(error);
+                return Error.Validation("Validation.Error", "Validation errors have occurred.", errors);
             }
         }
 

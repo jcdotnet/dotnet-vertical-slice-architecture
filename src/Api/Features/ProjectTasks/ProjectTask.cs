@@ -31,11 +31,8 @@ public class ProjectTask
     public static Result<ProjectTask> Create(string title, string description, PriorityLevel priority,
         DateTime? dueDate)
     {
-        if (string.IsNullOrWhiteSpace(title))
-        {
-            return Result.FailureResult<ProjectTask>(Error.TitleRequired);
-        }
-
+        if (string.IsNullOrWhiteSpace(title)) return Error.TitleRequired;
+        
         return new ProjectTask(title, description, priority, dueDate);
     }
 

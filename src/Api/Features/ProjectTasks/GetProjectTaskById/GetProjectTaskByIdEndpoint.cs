@@ -14,7 +14,6 @@ public static class GetProjectTaskByIdEndpoint
             
                 var result = await mediator.Send(new GetProjectTaskByIdQuery(id)); // Result<ProjectTaskDto>
 
-                if (result.IsSuccess) return Results.Ok(result);
 
                 return result.ToHttpResult();
             })

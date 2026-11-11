@@ -4,22 +4,23 @@ namespace Api.Common.Models;
 
 public static class ResultExtensions
 {
-    extension(Result result)
+    extension<T>(Result<T> result)
     {
         public IResult ToHttpResult()
         {
-            if (result.IsSuccess)
+            return result switch
             {
-                return Results.Ok();
-            }
+                T value => Results.Ok(value),
 
-            return result.Error!.ErrorType switch
-            {
-                ErrorType.NotFound => Results.NotFound(result.Error),
-                ErrorType.Validation => Results.BadRequest(result.Error),
-                ErrorType.BadRequest => Results.BadRequest(result.Error),
-                ErrorType.Unauthorized => Results.Json(result.Error, statusCode: StatusCodes.Status401Unauthorized),
-                _ => Results.Json(result.Error, statusCode: StatusCodes.Status500InternalServerError)
+                Error error => error.ErrorType switch
+                {
+                    ErrorType.NotFound => Results.NotFound(error),
+                    ErrorType.Validation => Results.BadRequest(error),
+                    ErrorType.BadRequest => Results.BadRequest(error),
+                    ErrorType.Unauthorized => Results.Json(error, statusCode: 401),
+                    _ => Results.Json(error, statusCode: 500)
+                },
+                null => Results.Json(Error.NullValue, statusCode: 500)
             };
         }
     }
